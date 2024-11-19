@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8062aa9dc1792c543bcb3ea351718f60, type: 3}
   m_Name: PigConfig
   m_EditorClassIdentifier: 
-  characterName: Pig
-  animatorController: {fileID: 9100000, guid: d94e462cfeaa8e64baf8bb247b7a42e5, type: 2}
+  characterName: Parrot
+  animatorController: {fileID: 22100000, guid: 43dbab69875c5354baad67003db507e8, type: 2}
   characterSprite: {fileID: 502994397, guid: c95e29ee08591a546933a57053c2d406, type: 3}

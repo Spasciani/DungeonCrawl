@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: FrogConfig
   m_EditorClassIdentifier: 
   characterName: Frog
-  animatorController: {fileID: 9100000, guid: 27480660411bd8b46bd0758d66e88c65, type: 2}
+  animatorController: {fileID: 22100000, guid: 1f8face7d18bcd0498a4bd0feb98a4c3, type: 2}
   characterSprite: {fileID: 1239583345, guid: b0f8f8fd4976786498491727037c495c, type: 3}
