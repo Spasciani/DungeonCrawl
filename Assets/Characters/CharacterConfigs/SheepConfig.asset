@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8062aa9dc1792c543bcb3ea351718f60, type: 3}
   m_Name: SheepConfig
   m_EditorClassIdentifier: 
-  characterName: 
-  animatorController: {fileID: 0}
-  characterSprite: {fileID: 0}
+  characterName: Sheep
+  animatorController: {fileID: 9100000, guid: f592371600b58cc4ab635a2aba87e66d, type: 2}
+  characterSprite: {fileID: -351247594, guid: 308466eb1e1854546a2fc89c34115c3d, type: 3}

@@ -1,45 +1,62 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerCustomizer : MonoBehaviour
+public class PlayerCustomizer : NetworkBehaviour
 {
-    // References to the player's SpriteRenderer and Animator
-    public SpriteRenderer spriteRenderer; // This should be the SpriteRenderer component on your player
-    public Animator animator;            // This should be the Animator component on your player
+    public SpriteRenderer spriteRenderer; // Reference to the in-game SpriteRenderer
+    public Animator animator; // Reference to the Animator component
+    public CharacterConfig[] characterConfigs; // Array of character configurations assigned in the Inspector
 
-    /// <summary>
-    /// Applies the given CharacterConfig to customize the player's appearance and animations.
-    /// </summary>
-    /// <param name="config">The CharacterConfig to apply.</param>
-    public void ApplyCharacterConfig(CharacterConfig config)
+    // Network variable to synchronize character selection across clients
+    private NetworkVariable<int> characterIndex = new NetworkVariable<int>(0);
+
+    public override void OnNetworkSpawn()
     {
-        if (config == null)
+        base.OnNetworkSpawn();
+
+        if (IsOwner)
         {
-            Debug.LogWarning("CharacterConfig is null! Make sure to assign a valid configuration.");
-            return;
+            // Retrieve the selected character index from the CharacterSelectionManager
+            int selectedIndex = CharacterSelectionManager.Instance.SelectedCharacterIndex;
+
+            // Inform the server about the selected character
+            SetCharacterServerRpc(selectedIndex);
         }
 
-        // Set the character sprite (optional, for preview or static visuals)
-        if (spriteRenderer != null && config.characterSprite != null)
+        // Ensure the correct character is applied when the index changes
+        characterIndex.OnValueChanged += OnCharacterIndexChanged;
+
+        // Apply the current character configuration
+        ApplyCharacterConfig(characterConfigs[characterIndex.Value]);
+    }
+
+    private void OnCharacterIndexChanged(int oldValue, int newValue)
+    {
+        ApplyCharacterConfig(characterConfigs[newValue]);
+    }
+
+    [ServerRpc]
+    private void SetCharacterServerRpc(int index)
+    {
+        if (index >= 0 && index < characterConfigs.Length)
         {
-            spriteRenderer.sprite = config.characterSprite;
+            // Update the character index on all clients
+            characterIndex.Value = index;
         }
         else
         {
-            Debug.LogWarning("SpriteRenderer or Character Sprite is missing. Check your setup.");
-        }
-
-        // Set the Animator Controller for the character
-        if (animator != null && config.animatorController != null)
-        {
-            animator.runtimeAnimatorController = config.animatorController;
-        }
-        else
-        {
-            Debug.LogWarning("Animator or Animator Controller is missing. Check your setup.");
+            Debug.LogWarning("Invalid character index received!");
         }
     }
+
+    private void ApplyCharacterConfig(CharacterConfig config)
+    {
+        if (config == null) return;
+
+        // Update the sprite and animator controller
+        spriteRenderer.sprite = config.characterSprite;
+        animator.runtimeAnimatorController = config.animatorController;
+    }
 }
-
-
