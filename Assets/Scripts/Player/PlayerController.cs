@@ -3,43 +3,49 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
-[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
-    public float walkSpeed = 5f;
-    Vector2 moveInput;
+    public float moveSpeed = 5f;
+    public float jumpForce = 10f;
 
-    //Rigid Body component
-    Rigidbody2D rb;
+    private Rigidbody2D rb;
+    private Animator animator;
+    private bool isGrounded;
 
-    public bool IsMoving { get; private set; }
-
-    private void Awake(){
-        rb = GetComponent<Rigidbody2D>();
-    }
-
-    // Start is called before the first frame update
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        HandleMovement();
     }
 
-    private void FixedUpdate(){
-        rb.velocity = new Vector2(moveInput.x * walkSpeed, rb.velocity.y);
+    void HandleMovement()
+    {
+        // Horizontal movement
+        float move = Input.GetAxis("Horizontal");
+        rb.velocity = new Vector2(move * moveSpeed, rb.velocity.y);
+
+        // Update animation
+        animator.SetFloat("Speed", Mathf.Abs(move));
+
+        // Jumping
+        if (Input.GetButtonDown("Jump") && isGrounded)
+        {
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            animator.SetTrigger("Jump");
+            isGrounded = false;
+        }
     }
 
-    public void onMove(InputAction.CallbackContext context){
-
-        moveInput = context.ReadValue<Vector2>();
-
-        IsMoving = moveInput != Vector2.zero;
-
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.contacts[0].normal.y > 0.5f)
+        {
+            isGrounded = true;
+        }
     }
 }

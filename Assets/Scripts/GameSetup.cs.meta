@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: be2b18072f98ec64c84a57bb3b44c4ec
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - playerPrefab: {fileID: 585807377731838102, guid: 047f762238cc000448170a7d827e99d7, type: 3}
+  - FrogConfig: {fileID: 11400000, guid: 7dadc5c9b30c0dd438f469d38001655d, type: 2}
+  - SheepConfig: {fileID: 11400000, guid: ceb89f12c791b0f43b10d4b2259399a5, type: 2}
+  - BirdConfig: {fileID: 11400000, guid: 61004384133f0b340974657bac46451c, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
