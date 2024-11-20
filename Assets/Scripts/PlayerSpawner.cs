@@ -39,6 +39,8 @@ public class PlayerSpawner : MonoBehaviour
 
     private void SpawnPlayer(ulong clientId)
     {
+        Debug.Log($"Attempting to spawn player for client {clientId}");
+
         Vector3 spawnPosition = GetSpawnPosition();
         GameObject player = Instantiate(playerPrefab, spawnPosition, Quaternion.identity);
 
@@ -46,7 +48,6 @@ public class PlayerSpawner : MonoBehaviour
         NetworkObject networkObject = player.GetComponent<NetworkObject>();
         networkObject.SpawnAsPlayerObject(clientId);
 
-        // Assign character configuration (if needed)
         Debug.Log($"Spawned player {clientId} at position {spawnPosition}");
     }
 
