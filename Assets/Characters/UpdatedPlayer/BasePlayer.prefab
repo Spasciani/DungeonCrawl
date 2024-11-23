@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3531546447
+  GlobalObjectIdHash: 3215285143
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -250,6 +250,7 @@ MonoBehaviour:
   slidingForce: 5
   damageDuration: 0.5
   groundCheckCollider: {fileID: 7188862196517309696}
+  virtualCameraPrefab: {fileID: 3168453048973195219, guid: e4eba3051da32ce41bcd197c5221c2fe, type: 3}
   leftRayOffset: 0.1
   rightRayOffset: 0.1
 --- !u!114 &7081395566032554321

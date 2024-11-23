@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
+using Cinemachine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
     [Header("Movement Settings")]
     [Tooltip("Walking speed of the player.")]
@@ -45,6 +47,9 @@ public class PlayerController : MonoBehaviour
     private bool canJump;
     private bool isSprinting = false;
     private bool isTakingDamage = false;
+
+    public GameObject virtualCameraPrefab; // Assign in Inspector
+
 
     // Parameters for ground detection raycasting
     [Header("Ground Detection Raycast Settings")]
@@ -315,6 +320,31 @@ public class PlayerController : MonoBehaviour
             Gizmos.color = Color.blue;
             Gizmos.DrawLine(groundCheck.position + Vector3.left * leftRayOffset, groundCheck.position + Vector3.left * leftRayOffset + Vector3.down * (groundCheckRadius + 0.1f));
             Gizmos.DrawLine(groundCheck.position + Vector3.right * rightRayOffset, groundCheck.position + Vector3.right * rightRayOffset + Vector3.down * (groundCheckRadius + 0.1f));
+        }
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+
+        if (IsLocalPlayer)
+        {
+            // Instantiate the Cinemachine Virtual Camera
+            GameObject vCamGameObject = Instantiate(virtualCameraPrefab);
+
+            // Get the CinemachineVirtualCamera component
+            CinemachineVirtualCamera vCam = vCamGameObject.GetComponent<CinemachineVirtualCamera>();
+
+            if (vCam != null)
+            {
+                // Set the camera to follow and look at this player's transform
+                vCam.Follow = transform;
+                vCam.LookAt = transform;
+            }
+            else
+            {
+                Debug.LogError("CinemachineVirtualCamera component not found on the instantiated prefab.");
+            }
         }
     }
 }
