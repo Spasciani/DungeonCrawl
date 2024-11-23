@@ -22,10 +22,10 @@ public class PlayerSpawner : MonoBehaviour
         NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
 
             // Handle host spawning its own character
-        if (NetworkManager.Singleton.IsHost)
-        {
-            SpawnPlayer(NetworkManager.Singleton.LocalClientId);
-        }
+        // if (NetworkManager.Singleton.IsHost)
+        // {
+        //     SpawnPlayer(NetworkManager.Singleton.LocalClientId);
+        // }
     }
 
     private void OnClientConnected(ulong clientId)
@@ -33,7 +33,7 @@ public class PlayerSpawner : MonoBehaviour
         if (NetworkManager.Singleton.IsServer)
         {
             // Only the server should spawn player objects
-            SpawnPlayer(clientId);
+            //SpawnPlayer(clientId);
         }
     }
 

@@ -55,19 +55,19 @@ public class NetworkManagerUI : MonoBehaviour
 // }
 
 
-    public RelayManager relayManager;
+    // public RelayManager relayManager;
 
-    public async void HostGame()
-    {
-        Debug.Log("Host button pressed.");
-        await relayManager.CreateRelay(10); // Calls RelayManager for hosting
-    }
+    // public async void HostGame()
+    // {
+    //     Debug.Log("Host button pressed.");
+    //     await relayManager.CreateRelay(10); // Calls RelayManager for hosting
+    // }
 
-    public async void JoinGame(string joinCode)
-    {
-        Debug.Log($"Join button pressed with code: {joinCode}");
-        await relayManager.JoinRelay(joinCode); // Calls RelayManager for joining
-    }
+    // public async void JoinGame(string joinCode)
+    // {
+    //     Debug.Log($"Join button pressed with code: {joinCode}");
+    //     await relayManager.JoinRelay(joinCode); // Calls RelayManager for joining
+    // }
 
 
 }

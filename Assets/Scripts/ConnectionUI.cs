@@ -11,36 +11,36 @@ public class ConnectionUI : MonoBehaviour
     public Button joinGameButton; // Button to join a Relay-hosted game
     private RelayManager relayManager;
 
-    private void Start()
-    {
-        relayManager = FindObjectOfType<RelayManager>();
+//     private void Start()
+//     {
+//         relayManager = FindObjectOfType<RelayManager>();
 
-        createHostButton.onClick.AddListener(async () => await CreateRelayHost());
-        joinGameButton.onClick.AddListener(async () => await JoinRelayGame());
-    }
+//         createHostButton.onClick.AddListener(async () => await CreateRelayHost());
+//         joinGameButton.onClick.AddListener(async () => await JoinRelayGame());
+//     }
 
-    private async Task CreateRelayHost()
-    {
-        string joinCode = await relayManager.CreateRelay(10); // Adjust max players as needed
-        if (!string.IsNullOrEmpty(joinCode))
-        {
-            Debug.Log($"Game hosted successfully. Join Code: {joinCode}");
-            // Display the join code to the user (e.g., update UI)
-        }
-    }
+//     private async Task CreateRelayHost()
+//     {
+//         string joinCode = await relayManager.CreateRelay(10); // Adjust max players as needed
+//         if (!string.IsNullOrEmpty(joinCode))
+//         {
+//             Debug.Log($"Game hosted successfully. Join Code: {joinCode}");
+//             // Display the join code to the user (e.g., update UI)
+//         }
+//     }
 
-    private async Task JoinRelayGame()
-    {
-        string joinCode = joinCodeInputField.text;
-        if (!string.IsNullOrEmpty(joinCode))
-        {
-            await relayManager.JoinRelay(joinCode);
-        }
-        else
-        {
-            Debug.LogError("Join Code is empty!");
-        }
-    }
+//     private async Task JoinRelayGame()
+//     {
+//         string joinCode = joinCodeInputField.text;
+//         if (!string.IsNullOrEmpty(joinCode))
+//         {
+//             await relayManager.JoinRelay(joinCode);
+//         }
+//         else
+//         {
+//             Debug.LogError("Join Code is empty!");
+//         }
+//     }
 }
 
 
